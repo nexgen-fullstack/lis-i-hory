@@ -1,0 +1,1 @@
+{ "name": "Маєток Ліс і Гори", "short_name": "Ліс і Гори", "start_url": "/", "display": "standalone", "background_color": "#ecebe7", "theme_color": "#38450f", "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }] }
