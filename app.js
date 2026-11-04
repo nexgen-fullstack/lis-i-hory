@@ -10,9 +10,9 @@ const GROUPS = {
   reels: [V('basein', 'Басейн з підігрівом', 'media/basein.webp'), V('snig', 'Снігопад над котеджем', 'media/snig.webp'), V('yalynka', 'Вечір біля ялинки', 'media/yalynka.webp'), V('dolyna', 'Поляниця з висоти — маєток серед смерек', 'media/hero.webp')],
   pool: [V('basein-dity', 'Діти в басейні з підігрівом', 'media/basein-dity.webp'), V('basein-2', 'Басейн серед смерек'), V('flamingo', 'Літо в басейні'), V('basein-3', 'Тепла вода у будь-яку погоду'), V('basein', 'Басейн біля шале', 'media/basein.webp'), I('basein-plavannia', 'Купання всією компанією', 640, 960), I('basein-dity', 'Басейн з підігрівом', 640, 960), I('lito-basein', 'Басейн і галявина', 640, 960), I('zyma-basein', 'Басейн узимку', 640, 958)],
   jacuzzi: [V('dzhakuzi', 'Джакузі на терасі Вежі', 'media/dzhakuzi.webp'), V('dzhakuzi-nich', 'Джакузі вночі під гірляндами'), I('dzhakuzi-nich', 'Вечір у джакузі', 640, 960), I('vezha-dzhakuzi', 'Тераса з джакузі серед лісу', 640, 1138)],
-  banya: [I('laznia', 'Лазня — справжня пара в банних шапках', 640, 480), I('khalaty', 'Після лазні — халати й вогонь у каміні', 640, 960), I('altanka-vohon', 'Альтанка з вогнищем узимку', 640, 311), I('vohon', 'Живий вогонь', 640, 800)],
-  morning: [I('terasa-zyma', 'Тераса з видом на засніжені смереки', 640, 480), V('ranok', 'Ранок на терасі з книжкою', 'media/ranok.webp'), V('yoga', 'Йога на терасі'), V('balkon', 'Ліс просто за балконом'), V('svitanok', 'Світанок у котеджі'), I('terasa-chai', 'Чай на терасі', 640, 853), I('snidanok', 'Сніданок на терасі', 640, 480), I('snidanok-2', 'Святковий сніданок', 640, 960), I('veranda', 'Веранда з видом на ліс', 640, 853)],
-  fire: [I('styl-kamin', 'Камін у вітальні зрубу', 640, 853), V('kamin', 'Вечір біля каміна', 'media/kamin.webp'), V('kamin-2', 'Живий вогонь'), V('shampanske', 'Свято біля ялинки'), I('kamin-zala', 'Камінна зала', 640, 640), I('kolor-kamin', 'Кам\'яний камін у Колоритному', 640, 853), I('kamin-loft', 'Лофт-камін у Стильному', 640, 800), I('chai-kamin', 'Чай біля вогню', 640, 1388), I('khalaty', 'Халати й вогонь', 640, 960)],
+  banya: [I('laznia', 'Лазня — справжня пара в банних шапках', 640, 480), I('altanka-vohon', 'Альтанка з вогнищем узимку', 640, 311), I('vohon', 'Живий вогонь', 640, 800)],
+  morning: [I('terasa-zyma', 'Тераса з видом на засніжені смереки', 640, 480), V('ranok', 'Ранок на терасі з книжкою', 'media/ranok.webp'), V('yoga', 'Йога на терасі'), V('svitanok', 'Світанок у котеджі'), I('terasa-chai', 'Чай на терасі', 640, 853), I('veranda', 'Веранда з видом на ліс', 640, 853)],
+  fire: [I('styl-kamin', 'Камін у вітальні зрубу', 640, 853), V('kamin-2', 'Живий вогонь'), V('shampanske', 'Свято біля ялинки'), I('kamin-zala', 'Камінна зала', 640, 640), I('kolor-kamin', 'Кам\'яний камін у Колоритному', 640, 853), I('kamin-loft', 'Лофт-камін у Стильному', 640, 800), I('chai-kamin', 'Чай біля вогню', 640, 1388)],
   kids: [I('bilyard', 'Більярд у мансарді', 640, 480), I('dytiacha', 'Дитяча кімната', 640, 427), I('batut', 'Батут на галявині', 640, 960), I('hoidalka', 'Гойдалка серед смерек', 640, 853), I('hamak', 'Гамак під соснами', 640, 853)],
   vezha: [I('vezha', 'Вежа — п\'ять поверхів серед смерек', 640, 853), I('vezha-dzhakuzi', 'Джакузі на терасі', 640, 1138), I('vezha-teleskop', 'Оглядовий поверх з телескопом', 640, 960), I('vezha-zala', 'Панорамна зала', 640, 853), I('vezha-nich', 'Вежа вночі', 640, 853), I('dzhakuzi-nich', 'Джакузі під гірляндами', 640, 960)],
   kolor: [I('kolor', 'Колоритний — шале на 14 гостей', 640, 450), I('kolor-kamin', 'Камінна зала', 640, 853), I('kolor-nomer', 'Номер у гуцульському стилі', 640, 480), I('kolor-spalnia', 'Спальня з килимом', 640, 450), I('kolor-korydor', 'Дерев\'яний коридор', 640, 480)],
@@ -51,9 +51,8 @@ const AROUND = [
 
 const GALLERY = [
   I('lis-zyma', 'Лісовий після снігопаду', 640, 853), I('dzhakuzi-nich', 'Джакузі під гірляндами', 640, 960), I('vezha-nich', 'Вежа вночі', 640, 853),
-  I('zakhid-kotedzh', 'Захід над маєтком', 640, 480), I('khalaty', 'Вечір біля каміна', 640, 960), I('basein-plavannia', 'Басейн з підігрівом', 640, 960),
-  I('lis-vohni', 'Ліс у вогниках', 640, 1138), I('nich-terytoriia', 'Територія вночі', 640, 853), I('snidanok-2', 'Святковий сніданок', 640, 960),
-  I('kelykhy', 'Вечір біля басейну', 640, 853), I('veranda-druzi', 'Компанія на веранді', 640, 480), I('vecheria-sklo', 'Вечеря у скляній залі', 640, 1138),
+  I('zakhid-kotedzh', 'Захід над маєтком', 640, 480), I('basein-plavannia', 'Басейн з підігрівом', 640, 960),
+  I('lis-vohni', 'Ліс у вогниках', 640, 1138), I('nich-terytoriia', 'Територія вночі', 640, 853),   I('kelykhy', 'Вечір біля басейну', 640, 853), I('veranda-druzi', 'Компанія на веранді', 640, 480), I('vecheria-sklo', 'Вечеря у скляній залі', 640, 1138),
   I('chai-kamin', 'Чай біля каміна', 640, 1388), I('zyma-dakh', 'Засніжені дахи', 640, 853), I('maietok-zyma', 'Маєток узимку з дрона', 640, 479),
   I('yalynka-2', 'Новий рік у зрубі', 640, 853), I('terasa-chai', 'Чай на терасі', 640, 853), I('vezha-teleskop', 'Телескоп у Вежі', 640, 960)
 ];
@@ -131,6 +130,42 @@ document.addEventListener('click', e => {
   const g = b.dataset.open === 'season' ? SEASONS[currentSeason].group : GROUPS[b.dataset.open];
   if (g) LB.open(g, +(b.dataset.start || 0));
 });
+
+/* tile chips: real number of items in each group */
+document.querySelectorAll('.tile[data-open]').forEach(t => {
+  const g = GROUPS[t.dataset.open], chip = t.querySelector('.tile-chip');
+  if (!g || !chip) return;
+  const nv = g.filter(x => x.t === 'v').length, ni = g.length - nv;
+  const label = nv && ni ? `Відео й фото · ${g.length}` : nv ? `Відео · ${nv}` : `Фото · ${ni}`;
+  [...chip.childNodes].forEach(n => { if (n.nodeType === 3) n.remove(); });
+  chip.append(label);
+});
+
+/* ---------- inline photos in the intro: grow in place (hover on desktop, tap on touch) ---------- */
+(function () {
+  const pics = [...document.querySelectorAll('.inline-img')];
+  if (!pics.length) return;
+  const S = 3.5, M = 12;
+  const fit = el => {
+    el.style.setProperty('--dx', '0px'); el.style.setProperty('--dy', '0px');
+    const r = el.getBoundingClientRect(), w = r.width * S, h = r.height * S;
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    let dx = 0, dy = 0;
+    if (cx - w / 2 < M) dx = M - (cx - w / 2); else if (cx + w / 2 > innerWidth - M) dx = innerWidth - M - (cx + w / 2);
+    if (cy - h / 2 < 80) dy = 80 - (cy - h / 2); else if (cy + h / 2 > innerHeight - M) dy = innerHeight - M - (cy + h / 2);
+    el.style.setProperty('--dx', dx + 'px'); el.style.setProperty('--dy', dy + 'px');
+  };
+  const open = el => { pics.forEach(p => p !== el && p.classList.remove('is-big')); fit(el); el.classList.add('is-big'); };
+  const close = el => el.classList.remove('is-big');
+  const hover = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  pics.forEach(el => {
+    if (hover) { el.addEventListener('mouseenter', () => open(el)); el.addEventListener('mouseleave', () => close(el)); }
+    el.addEventListener('focus', () => { if (el.matches(':focus-visible')) open(el); }); el.addEventListener('blur', () => close(el));
+    el.addEventListener('click', e => { e.stopPropagation(); if (hover) return; el.classList.contains('is-big') ? close(el) : open(el); });
+  });
+  document.addEventListener('click', () => pics.forEach(close));
+  addEventListener('scroll', () => { if (!hover) pics.forEach(close); }, { passive: true });
+})();
 
 /* ---------- cottage carousels ---------- */
 document.querySelectorAll('[data-gallery]').forEach(box => {

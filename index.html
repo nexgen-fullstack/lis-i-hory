@@ -155,9 +155,9 @@
       </div>
 
       <div class="reels">
-        <button type="button" class="reel reel-1" data-open="reels" data-start="0" aria-label="Дивитися відео: басейн з підігрівом"><span class="bezel"><video muted loop playsinline preload="none" poster="media/basein.webp" data-src="media/basein.mp4" aria-hidden="true"></video><i class="play" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M5 3.5v9l7.5-4.5z"/></svg></i></span><span class="reel-tag">Басейн з підігрівом</span></button>
-        <button type="button" class="reel reel-2" data-open="reels" data-start="1" aria-label="Дивитися відео: снігопад над котеджем"><span class="bezel"><video muted loop playsinline preload="none" poster="media/snig.webp" data-src="media/snig.mp4" aria-hidden="true"></video><i class="play" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M5 3.5v9l7.5-4.5z"/></svg></i></span><span class="reel-tag">Снігопад над котеджем</span></button>
-        <button type="button" class="reel reel-3" data-open="reels" data-start="2" aria-label="Дивитися відео: вечір біля ялинки"><span class="bezel"><video muted loop playsinline preload="none" poster="media/yalynka.webp" data-src="media/yalynka.mp4" aria-hidden="true"></video><i class="play" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M5 3.5v9l7.5-4.5z"/></svg></i></span><span class="reel-tag">Вечір біля ялинки</span></button>
+        <div class="reel reel-1"><span class="bezel"><video muted loop playsinline preload="none" poster="media/basein.webp" data-src="media/basein.mp4" aria-hidden="true"></video></span><span class="reel-tag">Басейн з підігрівом</span></div>
+        <div class="reel reel-2"><span class="bezel"><video muted loop playsinline preload="none" poster="media/snig.webp" data-src="media/snig.mp4" aria-hidden="true"></video></span><span class="reel-tag">Снігопад над котеджем</span></div>
+        <div class="reel reel-3"><span class="bezel"><video muted loop playsinline preload="none" poster="media/yalynka.webp" data-src="media/yalynka.mp4" aria-hidden="true"></video></span><span class="reel-tag">Вечір біля ялинки</span></div>
       </div>
     </div>
 
@@ -172,12 +172,23 @@
   </div>
 
   <!-- INTRO -->
-  <section class="intro light" id="pro" aria-labelledby="intro-h">
+  <section class="intro light tex-1" id="pro" aria-labelledby="intro-h">
     <div class="wrap">
-      <span class="eyebrow reveal">Маєток у Поляниці</span>
-      <h2 class="intro-text reveal" id="intro-h">
-        Чотири зруби <span class="inline-img" style="--img:url(img/styl-640.webp)"></span> серед вікових смерек, де зранку чути лише птахів <span class="inline-img" style="--img:url(img/terasa-chai-640.webp)"></span>, а ввечері — тріск каміна <span class="inline-img" style="--img:url(img/vohon-640.webp)"></span> і сніг за вікном
-      </h2>
+      <div class="intro-grid">
+        <div class="intro-copy">
+          <span class="eyebrow reveal">Маєток у Поляниці</span>
+          <h2 class="intro-text reveal" id="intro-h">
+            Чотири зруби <span class="inline-img" tabindex="0" role="img" aria-label="Котедж Стильний" style="--img:url(img/styl-640.webp)"></span> серед вікових смерек, де зранку чути лише птахів <span class="inline-img" tabindex="0" role="img" aria-label="Тераса з видом на засніжені смереки" style="--img:url(img/terasa-zyma-640.webp)"></span>, а ввечері — тріск каміна <span class="inline-img" tabindex="0" role="img" aria-label="Живий вогонь у каміні" style="--img:url(img/vohon-640.webp)"></span> і сніг за вікном
+          </h2>
+          <p class="intro-hint reveal">Наведіть або торкніться фото в тексті — воно збільшиться.</p>
+        </div>
+        <div class="zruby" aria-label="Наші котеджі">
+        <a class="zrub reveal" href="#kotedzh-vezha" style="--d:0"><span class="zrub-img"><img src="img/vezha-640.webp" alt="Котедж Вежа — зруб у Поляниці" width="640" height="480" loading="lazy" decoding="async"></span><span class="zrub-cap"><b>Вежа</b><span>до 7 гостей</span></span><i class="zrub-go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M6 4h6v6"/></svg></i></a>
+        <a class="zrub reveal" href="#kotedzh-kolorytnyi" style="--d:1"><span class="zrub-img"><img src="img/kolor-640.webp" alt="Котедж Колоритний — зруб у Поляниці" width="640" height="480" loading="lazy" decoding="async"></span><span class="zrub-cap"><b>Колоритний</b><span>до 14 гостей</span></span><i class="zrub-go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M6 4h6v6"/></svg></i></a>
+        <a class="zrub reveal" href="#kotedzh-stylnyi" style="--d:2"><span class="zrub-img"><img src="img/styl-640.webp" alt="Котедж Стильний — зруб у Поляниці" width="640" height="480" loading="lazy" decoding="async"></span><span class="zrub-cap"><b>Стильний</b><span>до 14 гостей</span></span><i class="zrub-go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M6 4h6v6"/></svg></i></a>
+        <a class="zrub reveal" href="#kotedzh-lisovyi" style="--d:3"><span class="zrub-img"><img src="img/lis-640.webp" alt="Котедж Лісовий — зруб у Поляниці" width="640" height="480" loading="lazy" decoding="async"></span><span class="zrub-cap"><b>Лісовий</b><span>до 8 гостей</span></span><i class="zrub-go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M6 4h6v6"/></svg></i></a>
+        </div>
+      </div>
       <div class="stats">
         <div class="stat reveal"><b>4</b><span>котеджі з натурального зрубу</span></div>
         <div class="stat reveal"><b>6–14</b><span>гостей в одному котеджі</span></div>
@@ -188,7 +199,7 @@
   </section>
 
   <!-- COTTAGES -->
-  <section class="cottages light" id="kotedzhi" aria-labelledby="cot-h">
+  <section class="cottages light tex-2" id="kotedzhi" aria-labelledby="cot-h">
     <div class="sec-head">
       <span class="eyebrow reveal">Котеджі</span>
       <h2 class="h2 reveal" id="cot-h">Оберіть <em>свій</em> зруб</h2>
@@ -283,7 +294,7 @@
       <button type="button" class="tile t-banya reveal" data-open="banya">
         <img src="img/laznia-640.webp" srcset="img/laznia-640.webp 640w, img/laznia-1600.webp 1600w" sizes="(max-width: 640px) 100vw, 40vw" alt="Гості в лазні у банних шапках" width="640" height="480" loading="lazy">
         <span class="tile-chip">Фото · 4</span>
-        <span class="tile-cap"><b>Лазня з купіллю</b><span>Справжня пара, банні шапки, холодна купіль — і вечір у халатах біля каміна.</span></span>
+        <span class="tile-cap"><b>Лазня з купіллю</b><span>Справжня пара, банні шапки, холодна купіль і живий вогонь після пари.</span></span>
       </button>
       <button type="button" class="tile t-morning reveal" data-open="morning">
         <img src="img/terasa-zyma-640.webp" srcset="img/terasa-zyma-640.webp 640w, img/terasa-zyma-1600.webp 1600w" sizes="(max-width: 640px) 100vw, 30vw" alt="Тераса з видом на засніжені смереки" width="640" height="480" loading="lazy">
@@ -341,7 +352,7 @@
   </section>
 
   <!-- SURROUNDINGS -->
-  <section class="around light" id="dovkola" aria-labelledby="ar-h">
+  <section class="around light tex-3" id="dovkola" aria-labelledby="ar-h">
     <div class="sec-head sec-head-row">
       <div>
         <span class="eyebrow reveal">Довкола маєтку</span>
@@ -394,7 +405,7 @@
   </section>
 
   <!-- GALLERY -->
-  <section class="gallery light" id="galereia" aria-labelledby="gal-h">
+  <section class="gallery light tex-1" id="galereia" aria-labelledby="gal-h">
     <div class="sec-head">
       <span class="eyebrow reveal">Галерея</span>
       <h2 class="h2 reveal" id="gal-h">Подивіться <em>самі</em></h2>
@@ -453,7 +464,7 @@
   </section>
 
   <!-- ROUTE -->
-  <section class="route light" id="yak-doikhaty" aria-labelledby="route-h">
+  <section class="route light tex-2" id="yak-doikhaty" aria-labelledby="route-h">
     <div class="route-info">
       <span class="eyebrow reveal">Як доїхати</span>
       <h2 class="h2 reveal" id="route-h">Поляниця, <em>вул. Прохідний, 192</em></h2>
@@ -472,7 +483,7 @@
   </section>
 
   <!-- FAQ -->
-  <section class="faq light" id="pytannia" aria-labelledby="faq-h">
+  <section class="faq light tex-3" id="pytannia" aria-labelledby="faq-h">
     <div class="faq-side">
       <span class="eyebrow reveal">Питання</span>
       <h2 class="h2 reveal" id="faq-h">Перед <em>заїздом</em></h2>
