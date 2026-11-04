@@ -11,11 +11,11 @@ const GROUPS = {
   pool: [V('basein-dity', 'Діти в басейні з підігрівом', 'media/basein-dity.webp'), V('basein-2', 'Басейн серед смерек'), V('flamingo', 'Літо в басейні'), V('basein-3', 'Тепла вода у будь-яку погоду'), V('basein', 'Басейн біля шале', 'media/basein.webp'), I('basein-plavannia', 'Купання всією компанією', 640, 960), I('basein-dity', 'Басейн з підігрівом', 640, 960), I('lito-basein', 'Басейн і галявина', 640, 960), I('zyma-basein', 'Басейн узимку', 640, 958)],
   jacuzzi: [V('dzhakuzi', 'Джакузі на терасі Вежі', 'media/dzhakuzi.webp'), V('dzhakuzi-nich', 'Джакузі вночі під гірляндами'), I('dzhakuzi-nich', 'Вечір у джакузі', 640, 960), I('vezha-dzhakuzi', 'Тераса з джакузі серед лісу', 640, 1138)],
   banya: [I('laznia', 'Лазня — справжня пара в банних шапках', 640, 480), I('altanka-vohon', 'Альтанка з вогнищем узимку', 640, 311), I('vohon', 'Живий вогонь', 640, 800)],
-  morning: [I('terasa-zyma', 'Тераса з видом на засніжені смереки', 640, 480), V('ranok', 'Ранок на терасі з книжкою', 'media/ranok.webp'), V('yoga', 'Йога на терасі'), V('svitanok', 'Світанок у котеджі'), I('terasa-chai', 'Чай на терасі', 640, 853), I('veranda', 'Веранда з видом на ліс', 640, 853)],
+  morning: [I('terasa-zyma', 'Тераса з видом на засніжені смереки', 640, 480), V('ranok', 'Ранок на терасі з книжкою', 'media/ranok.webp'), V('yoga', 'Йога на терасі'), I('terasa-chai', 'Чай на терасі', 640, 853), I('veranda', 'Веранда з видом на ліс', 640, 853)],
   fire: [I('styl-kamin', 'Камін у вітальні зрубу', 640, 853), V('kamin-2', 'Живий вогонь'), V('shampanske', 'Свято біля ялинки'), I('kamin-zala', 'Камінна зала', 640, 640), I('kolor-kamin', 'Кам\'яний камін у Колоритному', 640, 853), I('kamin-loft', 'Лофт-камін у Стильному', 640, 800), I('chai-kamin', 'Чай біля вогню', 640, 1388)],
   kids: [I('bilyard', 'Більярд у мансарді', 640, 480), I('dytiacha', 'Дитяча кімната', 640, 427), I('batut', 'Батут на галявині', 640, 960), I('hoidalka', 'Гойдалка серед смерек', 640, 853), I('hamak', 'Гамак під соснами', 640, 853)],
   vezha: [I('vezha', 'Вежа — п\'ять поверхів серед смерек', 640, 853), I('vezha-dzhakuzi', 'Джакузі на терасі', 640, 1138), I('vezha-teleskop', 'Оглядовий поверх з телескопом', 640, 960), I('vezha-zala', 'Панорамна зала', 640, 853), I('vezha-nich', 'Вежа вночі', 640, 853), I('dzhakuzi-nich', 'Джакузі під гірляндами', 640, 960)],
-  kolor: [I('kolor', 'Колоритний — шале на 14 гостей', 640, 450), I('kolor-kamin', 'Камінна зала', 640, 853), I('kolor-nomer', 'Номер у гуцульському стилі', 640, 480), I('kolor-spalnia', 'Спальня з килимом', 640, 450), I('kolor-korydor', 'Дерев\'яний коридор', 640, 480)],
+  kolor: [I('kolor', 'Колоритний — шале на 14 гостей', 640, 349), I('kolor-kamin', 'Камінна зала', 640, 853), I('kolor-nomer', 'Номер у гуцульському стилі', 640, 480), I('kolor-spalnia', 'Спальня з килимом', 640, 425), I('kolor-korydor', 'Дерев\'яний коридор', 640, 480)],
   styl: [I('styl', 'Стильний — зруб на кам\'яному цоколі', 640, 427), I('styl-kamin', 'Камін у вітальні', 640, 853), I('styl-vitalnia', 'Світла вітальня', 640, 853), I('styl-spalnia', 'Спальня king-size', 640, 640), I('styl-vanna', 'Ванна з підсвіченим дзеркалом', 640, 640)],
   lis: [I('lis', 'Лісовий — зруб під смереками', 640, 360), I('lis-2', 'Тераса на краю лісу', 640, 1138), I('lis-3', 'Котедж серед галявини', 640, 296), I('lis-zyma', 'Лісовий узимку', 640, 853), I('lis-ranok', 'Ранок у спальні', 640, 960)]
 };
@@ -80,46 +80,215 @@ const playVideo = v => { if (reduceMotion || !v) return; if (!v.src) { v.src = v
   vids.forEach(v => io.observe(v));
 })();
 
-/* ---------- lightbox (photos + videos, arrows, swipe, keys, thumbs) ---------- */
-const LB = (function () {
-  const lb = document.getElementById('lb'), stage = document.getElementById('lb-stage'), cap = document.getElementById('lb-cap'), count = document.getElementById('lb-count'), thumbs = document.getElementById('lb-thumbs');
-  let items = [], k = 0, last = null;
-  function render() {
+/* ---------- phone "Back" closes any open overlay and keeps you at the same spot ---------- */
+const Back = (function () {
+  let fn = null;
+  addEventListener('popstate', () => { if (fn) { const f = fn; fn = null; f(); } });
+  return {
+    open(f) { fn = f; history.pushState({ overlay: 1 }, ''); },
+    close() { if (fn) history.back(); }
+  };
+})();
+const EASE = 'cubic-bezier(.32,.72,0,1)';
+const lockPage = on => document.documentElement.classList.toggle('zv-open', on);
+
+/* ---------- viewer: photo/video grows to full screen, native swipe, pinch & double-tap zoom, no sound ---------- */
+const ZV = (function () {
+  const root = document.getElementById('zv'), track = document.getElementById('zv-track');
+  const count = document.getElementById('zv-count'), cap = document.getElementById('zv-cap');
+  const prevB = document.getElementById('zv-prev'), nextB = document.getElementById('zv-next');
+  let items = [], k = -1, last = null, z = { s: 1, x: 0, y: 0 };
+  const slide = i => track.children[i];
+  const media = i => { const s = slide(i); return s && s.firstElementChild; };
+  const esc = t => (t || '').replace(/"/g, '&quot;');
+
+  function fit(i) {
+    const sl = slide(i); if (!sl) return;
+    const cs = getComputedStyle(sl), it = items[i];
+    const bw = sl.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const bh = sl.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    const ar = it.ar || (it.w && it.h ? it.w / it.h : 9 / 16);
+    const w = Math.min(bw, bh * ar);
+    Object.assign(sl.firstElementChild.style, { width: w + 'px', height: w / ar + 'px' });
+  }
+  function hiRes(i) {
+    const it = items[i], el = media(i);
+    if (!el || it.t !== 'i' || el.dataset.hi) return;
+    el.dataset.hi = 1; el.loading = 'eager';
+    const p = new Image(); p.src = it.src;
+    const swap = () => { el.src = it.src; };
+    if (p.decode) p.decode().then(swap, swap); else p.onload = swap;
+  }
+  function setZoom(s, x, y, anim) {
+    z = { s, x, y };
+    const el = media(k); if (!el) return;
+    el.style.transition = anim ? `transform .32s ${EASE}` : 'none';
+    el.style.transform = s === 1 && !x && !y ? '' : `translate(${x}px, ${y}px) scale(${s})`;
+    track.classList.toggle('zoomed', s > 1);
+  }
+  function clampZoom() {
+    const el = media(k); if (!el) return;
+    const lx = Math.max(0, (z.s * el.offsetWidth - track.clientWidth) / 2), ly = Math.max(0, (z.s * el.offsetHeight - track.clientHeight) / 2);
+    setZoom(z.s, Math.max(-lx, Math.min(lx, z.x)), Math.max(-ly, Math.min(ly, z.y)), true);
+  }
+  function activate(i) {
+    if (i === k) return;
+    if (k >= 0 && z.s !== 1) setZoom(1, 0, 0);
+    k = i;
     const it = items[k];
-    stage.innerHTML = '';
-    let el;
-    if (it.t === 'v') {
-      el = document.createElement('video');
-      Object.assign(el, { src: it.src, controls: true, autoplay: true, playsInline: true, loop: true, poster: it.thumb, preload: 'auto' });
-      el.setAttribute('playsinline', '');
-    } else {
-      el = new Image(); el.src = it.src; el.alt = it.cap || ''; el.decoding = 'async';
-    }
-    stage.appendChild(el);
+    count.textContent = items.length > 1 ? `${k + 1} / ${items.length}` : '';
     cap.innerHTML = (it.cap || '') + (it.credit ? `<small>${it.credit}</small>` : '');
-    count.textContent = `${k + 1} / ${items.length}`;
-    [...thumbs.children].forEach((b, i) => { b.classList.toggle('on', i === k); if (i === k) b.scrollIntoView({ block: 'nearest', inline: 'center', behavior: reduceMotion ? 'auto' : 'smooth' }); });
-    // preload neighbours
-    [k + 1, k - 1].forEach(j => { const n = items[(j + items.length) % items.length]; if (n && n.t === 'i') { const p = new Image(); p.src = n.src; } });
+    prevB.disabled = k === 0; nextB.disabled = k === items.length - 1;
+    [k, k + 1, k - 1].forEach(j => { if (j >= 0 && j < items.length) hiRes(j); });
+    [...track.children].forEach((sl, j) => {
+      const v = sl.firstElementChild; if (v.tagName !== 'VIDEO') return;
+      if (j === k) { if (!v.getAttribute('src')) v.src = items[j].src; const p = v.play(); if (p) p.catch(() => {}); }
+      else if (!v.paused) v.pause();
+    });
   }
-  function open(list, start = 0) {
-    items = list; k = start; last = document.activeElement;
-    thumbs.innerHTML = items.map((it, i) => `<button type="button" class="${it.t === 'v' ? 'is-video' : ''}" aria-label="${(it.cap || 'Фото ' + (i + 1)).replace(/"/g, '&quot;')}"><img src="${it.thumb}" alt="" loading="lazy"></button>`).join('');
-    [...thumbs.children].forEach((b, i) => b.addEventListener('click', () => { k = i; render(); }));
-    lb.hidden = false; document.body.style.overflow = 'hidden';
-    render(); document.getElementById('lb-close').focus();
+  let raf = 0;
+  track.addEventListener('scroll', () => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => { raf = 0; const i = Math.round(track.scrollLeft / track.clientWidth); if (i >= 0 && i < items.length) activate(i); });
+  }, { passive: true });
+
+  function flipIn(from) {
+    const el = media(k); if (!el || reduceMotion) return;
+    const b = el.getBoundingClientRect(), a = from && from.getBoundingClientRect();
+    if (!a || !a.width || a.bottom < 0 || a.top > innerHeight) { el.animate([{ opacity: 0, transform: 'scale(.94)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: EASE }); return; }
+    const s = Math.max(a.width / b.width, a.height / b.height);
+    const tx = a.left + a.width / 2 - b.left - s * b.width / 2, ty = a.top + a.height / 2 - b.top - s * b.height / 2;
+    el.animate([{ transformOrigin: '0 0', transform: `translate(${tx}px, ${ty}px) scale(${s})`, borderRadius: '18px' }, { transformOrigin: '0 0', transform: 'none', borderRadius: '6px' }], { duration: 440, easing: EASE });
   }
-  function close() { lb.hidden = true; stage.innerHTML = ''; document.body.style.overflow = ''; if (last) last.focus(); }
-  const go = d => { k = (k + d + items.length) % items.length; render(); };
-  document.getElementById('lb-close').addEventListener('click', close);
-  document.getElementById('lb-prev').addEventListener('click', () => go(-1));
-  document.getElementById('lb-next').addEventListener('click', () => go(1));
-  lb.addEventListener('click', e => { if (e.target === stage) close(); });
-  document.addEventListener('keydown', e => { if (lb.hidden) return; if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') go(-1); if (e.key === 'ArrowRight') go(1); });
-  let x0 = null, y0 = null;
-  stage.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
-  stage.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1); x0 = null; });
+  function open(list, start = 0, from) {
+    items = list; k = -1; last = document.activeElement; z = { s: 1, x: 0, y: 0 };
+    track.classList.remove('zoomed');
+    root.classList.toggle('single', list.length < 2);
+    track.innerHTML = list.map((it, i) => `<div class="zv-slide">${it.t === 'v'
+      ? `<video muted loop playsinline preload="none" poster="${it.thumb}" aria-label="${esc(it.cap)}"></video>`
+      : `<img src="${it.thumb}" alt="${esc(it.cap)}" decoding="async"${Math.abs(i - start) > 1 ? ' loading="lazy"' : ''}>`}</div>`).join('');
+    track.querySelectorAll('video').forEach(v => v.addEventListener('loadedmetadata', () => {
+      const i = [...track.children].indexOf(v.parentElement); if (i < 0) return;
+      items[i].ar = v.videoWidth / v.videoHeight; fit(i);
+    }));
+    root.hidden = false; lockPage(true);
+    list.forEach((_, i) => fit(i));
+    track.scrollLeft = start * track.clientWidth;
+    activate(start);
+    flipIn(from);
+    Back.open(shut);
+    document.getElementById('zv-close').focus({ preventScroll: true });
+  }
+  function shut() {
+    if (root.hidden) return;
+    track.querySelectorAll('video').forEach(v => v.pause());
+    root.classList.add('out');
+    setTimeout(() => { root.hidden = true; root.classList.remove('out'); track.innerHTML = ''; items = []; k = -1; lockPage(false); }, 220);
+    if (last && last.focus) last.focus({ preventScroll: true });
+  }
+  const close = () => Back.close();
+  const go = d => { const i = Math.max(0, Math.min(items.length - 1, k + d)); track.scrollTo({ left: i * track.clientWidth, behavior: reduceMotion ? 'auto' : 'smooth' }); };
+  document.getElementById('zv-close').addEventListener('click', close);
+  prevB.addEventListener('click', () => go(-1));
+  nextB.addEventListener('click', () => go(1));
+  document.addEventListener('keydown', e => { if (root.hidden) return; if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') go(-1); if (e.key === 'ArrowRight') go(1); });
+  addEventListener('resize', () => { if (root.hidden) return; items.forEach((_, i) => fit(i)); setZoom(1, 0, 0); track.scrollLeft = k * track.clientWidth; });
+
+  /* touch: tap = close, double tap / pinch = zoom, one finger drag when zoomed = pan */
+  let t0 = null, pinch = null, pan = null, tapTimer = 0, tapX = 0, tapY = 0, lastTouch = 0;
+  const center = () => { const r = slide(k).getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; };
+  const dist = (p, q) => Math.hypot(p.clientX - q.clientX, p.clientY - q.clientY);
+  function toggleZoom(px, py) {
+    if (z.s > 1) return setZoom(1, 0, 0, true);
+    const c = center(), S = 2.5;
+    setZoom(S, -(S - 1) * (px - c.x), -(S - 1) * (py - c.y), true); clampZoom();
+  }
+  track.addEventListener('touchstart', e => {
+    lastTouch = Date.now();
+    if (!media(k)) return;
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const [p, q] = e.touches, c = center();
+      const mx = (p.clientX + q.clientX) / 2 - c.x, my = (p.clientY + q.clientY) / 2 - c.y;
+      pinch = { d: dist(p, q), s: z.s, cx: (mx - z.x) / z.s, cy: (my - z.y) / z.s }; pan = null; t0 = null;
+    } else if (e.touches.length === 1) {
+      const p = e.touches[0];
+      t0 = { x: p.clientX, y: p.clientY, t: Date.now(), moved: false };
+      pan = z.s > 1 ? { x: p.clientX - z.x, y: p.clientY - z.y } : null;
+    }
+  }, { passive: false });
+  track.addEventListener('touchmove', e => {
+    if (pinch && e.touches.length === 2) {
+      e.preventDefault();
+      const [p, q] = e.touches, c = center();
+      const s = Math.min(5, Math.max(1, pinch.s * dist(p, q) / pinch.d));
+      const mx = (p.clientX + q.clientX) / 2 - c.x, my = (p.clientY + q.clientY) / 2 - c.y;
+      setZoom(s, mx - s * pinch.cx, my - s * pinch.cy);
+    } else if (pan && e.touches.length === 1) {
+      e.preventDefault();
+      const p = e.touches[0]; setZoom(z.s, p.clientX - pan.x, p.clientY - pan.y);
+    }
+    if (t0) { const p = e.touches[0]; if (Math.hypot(p.clientX - t0.x, p.clientY - t0.y) > 10) t0.moved = true; }
+  }, { passive: false });
+  track.addEventListener('touchend', e => {
+    lastTouch = Date.now();
+    if (pinch) {
+      if (e.touches.length < 2) { pinch = null; if (z.s < 1.05) setZoom(1, 0, 0, true); else clampZoom(); }
+      if (e.touches.length === 1 && z.s > 1) { const p = e.touches[0]; pan = { x: p.clientX - z.x, y: p.clientY - z.y }; }
+      return;
+    }
+    if (pan && !e.touches.length) { pan = null; clampZoom(); }
+    if (t0 && !t0.moved && Date.now() - t0.t < 350 && !e.touches.length) {
+      const p = e.changedTouches[0];
+      if (tapTimer && Math.hypot(p.clientX - tapX, p.clientY - tapY) < 40) { clearTimeout(tapTimer); tapTimer = 0; toggleZoom(p.clientX, p.clientY); }
+      else { tapX = p.clientX; tapY = p.clientY; tapTimer = setTimeout(() => { tapTimer = 0; if (z.s > 1) setZoom(1, 0, 0, true); else close(); }, 270); }
+    }
+    t0 = null;
+  });
+  /* mouse: click = close, double click = zoom */
+  let clickTimer = 0;
+  track.addEventListener('click', e => {
+    if (Date.now() - lastTouch < 800) return;
+    if (clickTimer) { clearTimeout(clickTimer); clickTimer = 0; toggleZoom(e.clientX, e.clientY); return; }
+    clickTimer = setTimeout(() => { clickTimer = 0; if (z.s > 1) setZoom(1, 0, 0, true); else close(); }, 260);
+  });
   return { open };
+})();
+
+/* ---------- hero phones: tap = the phone itself grows to (almost) full screen, same muted video ---------- */
+(function () {
+  const pz = document.getElementById('pz'), pv = pz.querySelector('video'), shell = pz.querySelector('.bezel');
+  let from = null;
+  const place = () => {
+    const H = Math.min(innerHeight * 0.88, innerWidth * 0.92 * 16 / 9), W = H * 9 / 16;
+    Object.assign(shell.style, { width: W + 'px', height: H + 'px', left: (innerWidth - W) / 2 + 'px', top: (innerHeight - H) / 2 + 'px' });
+  };
+  const flip = (a, b) => `translate(${a.left - b.left}px, ${a.top - b.top}px) scale(${a.width / b.width})`;
+  function open(reel) {
+    const v = reel.querySelector('video'); from = reel.querySelector('.bezel');
+    const src = v.getAttribute('src') || v.dataset.src;
+    pv.poster = v.poster;
+    if (pv.getAttribute('src') !== src) pv.src = src;
+    try { pv.currentTime = v.currentTime || 0; } catch (e) {}
+    pz.hidden = false; lockPage(true); place();
+    const p = pv.play(); if (p) p.catch(() => {});
+    if (!reduceMotion) shell.animate([{ transform: flip(from.getBoundingClientRect(), shell.getBoundingClientRect()) }, { transform: 'none' }], { duration: 480, easing: EASE });
+    from.style.visibility = 'hidden';
+    Back.open(shut);
+  }
+  function shut() {
+    const done = () => { pz.hidden = true; pz.classList.remove('out'); pv.pause(); if (from) from.style.visibility = ''; lockPage(false); };
+    pz.classList.add('out');
+    if (reduceMotion || !from) return done();
+    shell.animate([{ transform: 'none' }, { transform: flip(from.getBoundingClientRect(), shell.getBoundingClientRect()) }], { duration: 380, easing: EASE, fill: 'forwards' }).onfinish = function () { done(); this.cancel(); };
+  }
+  document.querySelectorAll('.reel').forEach(r => {
+    r.addEventListener('click', () => open(r));
+    r.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(r); } });
+  });
+  pz.addEventListener('click', () => Back.close());
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !pz.hidden) Back.close(); });
+  addEventListener('resize', () => { if (!pz.hidden) place(); });
 })();
 
 /* buttons with data-open="group" */
@@ -128,7 +297,7 @@ document.addEventListener('click', e => {
   const b = e.target.closest('[data-open]');
   if (!b) return;
   const g = b.dataset.open === 'season' ? SEASONS[currentSeason].group : GROUPS[b.dataset.open];
-  if (g) LB.open(g, +(b.dataset.start || 0));
+  if (g) ZV.open(g, +(b.dataset.start || 0), b);
 });
 
 /* tile chips: real number of items in each group */
@@ -141,68 +310,42 @@ document.querySelectorAll('.tile[data-open]').forEach(t => {
   chip.append(label);
 });
 
-/* ---------- inline photos in the intro: grow in place (hover on desktop, tap on touch) ---------- */
-(function () {
-  const pics = [...document.querySelectorAll('.inline-img')];
-  if (!pics.length) return;
-  const S = 3.5, M = 12;
-  const fit = el => {
-    el.style.setProperty('--dx', '0px'); el.style.setProperty('--dy', '0px');
-    const r = el.getBoundingClientRect(), w = r.width * S, h = r.height * S;
-    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    let dx = 0, dy = 0;
-    if (cx - w / 2 < M) dx = M - (cx - w / 2); else if (cx + w / 2 > innerWidth - M) dx = innerWidth - M - (cx + w / 2);
-    if (cy - h / 2 < 80) dy = 80 - (cy - h / 2); else if (cy + h / 2 > innerHeight - M) dy = innerHeight - M - (cy + h / 2);
-    el.style.setProperty('--dx', dx + 'px'); el.style.setProperty('--dy', dy + 'px');
-  };
-  const open = el => { pics.forEach(p => p !== el && p.classList.remove('is-big')); fit(el); el.classList.add('is-big'); };
-  const close = el => el.classList.remove('is-big');
-  const hover = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  pics.forEach(el => {
-    if (hover) { el.addEventListener('mouseenter', () => open(el)); el.addEventListener('mouseleave', () => close(el)); }
-    el.addEventListener('focus', () => { if (el.matches(':focus-visible')) open(el); }); el.addEventListener('blur', () => close(el));
-    el.addEventListener('click', e => { e.stopPropagation(); if (hover) return; el.classList.contains('is-big') ? close(el) : open(el); });
-  });
-  document.addEventListener('click', () => pics.forEach(close));
-  addEventListener('scroll', () => { if (!hover) pics.forEach(close); }, { passive: true });
-})();
+/* ---------- inline photos in the intro: tap = open that photo full screen ---------- */
+document.querySelectorAll('.inline-img').forEach(el => {
+  const it = { t: 'i', thumb: el.dataset.thumb, src: el.dataset.full, w: +el.dataset.w, h: +el.dataset.h, cap: el.getAttribute('aria-label') };
+  const open = () => ZV.open([it], 0, el);
+  el.addEventListener('click', open);
+  el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+});
 
-/* ---------- cottage carousels ---------- */
+/* ---------- cottage carousels: native swipe strip, no reloading/flicker ---------- */
 document.querySelectorAll('[data-gallery]').forEach(box => {
   const list = GROUPS[box.dataset.gallery];
   const name = box.closest('.cot').querySelector('h3').textContent;
-  box.innerHTML = list.map((it, i) => `<img class="slide${i === 0 ? ' is-on' : ''}" src="${i === 0 ? it.src : it.thumb}" ${i === 0 ? '' : `data-hi="${it.src}"`} alt="${it.cap}" width="${it.w}" height="${it.h}" loading="lazy" decoding="async">`).join('') +
-    `<button type="button" class="round round-light cot-arrow prev" aria-label="Попереднє фото: ${name}"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button>
+  box.innerHTML = `<div class="cot-track">${list.map((it, i) => `<img class="slide" src="${it.thumb}" srcset="${it.thumb} 640w, ${it.src} 1600w" sizes="(max-width: 900px) 100vw, 55vw" alt="${it.cap}" width="${it.w}" height="${it.h}" loading="lazy" decoding="async">`).join('')}</div>
+     <button type="button" class="round round-light cot-arrow prev" aria-label="Попереднє фото: ${name}"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button>
      <button type="button" class="round round-light cot-arrow next" aria-label="Наступне фото: ${name}"><svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5"/></svg></button>
      <div class="cot-bar"><div class="cot-dots">${list.map((_, i) => `<button type="button" aria-label="Фото ${i + 1}"${i === 0 ? ' class="on"' : ''}></button>`).join('')}</div>
      <button type="button" class="cot-zoom"><svg viewBox="0 0 16 16"><path d="M10 2h4v4M6 14H2v-4M14 2 9 7M2 14l5-5"/></svg>Усі фото · ${list.length}</button></div>`;
-  const slides = [...box.querySelectorAll('.slide')], dots = [...box.querySelectorAll('.cot-dots button')];
-  let k = 0, timer;
-  const show = n => {
-    k = (n + slides.length) % slides.length;
-    const s = slides[k]; if (s.dataset.hi) { s.src = s.dataset.hi; delete s.dataset.hi; }
-    slides.forEach((im, i) => im.classList.toggle('is-on', i === k));
-    dots.forEach((d, i) => d.classList.toggle('on', i === k));
-  };
-  const stop = () => clearInterval(timer);
-  box.querySelector('.prev').addEventListener('click', () => { stop(); show(k - 1); });
-  box.querySelector('.next').addEventListener('click', () => { stop(); show(k + 1); });
-  dots.forEach((d, i) => d.addEventListener('click', () => { stop(); show(i); }));
-  slides.forEach(s => s.addEventListener('click', () => LB.open(list, k)));
-  box.querySelector('.cot-zoom').addEventListener('click', () => LB.open(list, k));
-  let x0 = null;
-  box.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
-  box.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) { stop(); show(k + (dx < 0 ? 1 : -1)); } x0 = null; });
-  if (!reduceMotion && 'IntersectionObserver' in window) {
-    new IntersectionObserver(([e]) => { stop(); if (e.isIntersecting) timer = setInterval(() => show(k + 1), 4200); }, { threshold: 0.5 }).observe(box);
-  }
+  const track = box.querySelector('.cot-track'), slides = [...track.children], dots = [...box.querySelectorAll('.cot-dots button')];
+  let k = 0, raf = 0;
+  const go = n => track.scrollTo({ left: ((n + slides.length) % slides.length) * track.clientWidth, behavior: reduceMotion ? 'auto' : 'smooth' });
+  track.addEventListener('scroll', () => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => { raf = 0; const i = Math.round(track.scrollLeft / track.clientWidth); if (i !== k) { k = i; dots.forEach((d, j) => d.classList.toggle('on', j === k)); } });
+  }, { passive: true });
+  box.querySelector('.prev').addEventListener('click', () => go(k - 1));
+  box.querySelector('.next').addEventListener('click', () => go(k + 1));
+  dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
+  slides.forEach((s, i) => s.addEventListener('click', () => ZV.open(list, i, s)));
+  box.querySelector('.cot-zoom').addEventListener('click', () => ZV.open(list, k, slides[k]));
 });
 
 /* ---------- surroundings rail ---------- */
 (function () {
   const rail = document.getElementById('rail');
   rail.innerHTML = AROUND.map((it, i) => `<button type="button" class="spot" data-i="${i}"><span class="spot-img"><img src="${it.thumb}" alt="${it.title}" width="${it.w}" height="${it.h}" loading="lazy" decoding="async"></span><span class="spot-txt"><b>${it.title}</b><span>${it.sub}</span></span></button>`).join('');
-  rail.addEventListener('click', e => { const s = e.target.closest('.spot'); if (s) LB.open(AROUND, +s.dataset.i); });
+  rail.addEventListener('click', e => { const s = e.target.closest('.spot'); if (s) ZV.open(AROUND, +s.dataset.i, s.querySelector('img')); });
   const prev = document.getElementById('rail-prev'), next = document.getElementById('rail-next');
   const step = () => { const s = rail.querySelector('.spot'); return s ? (s.offsetWidth + 14) * Math.max(1, Math.floor(rail.clientWidth / (s.offsetWidth + 14)) - 1) : 300; };
   const upd = () => { prev.disabled = rail.scrollLeft < 8; next.disabled = rail.scrollLeft + rail.clientWidth > rail.scrollWidth - 8; };
@@ -216,7 +359,7 @@ document.querySelectorAll('[data-gallery]').forEach(box => {
 (function () {
   const m = document.getElementById('masonry');
   m.innerHTML = GALLERY.map((it, i) => `<button type="button" class="m reveal" data-i="${i}"><img src="${it.thumb}" alt="${it.cap}" width="${it.w}" height="${it.h}" loading="lazy" decoding="async"></button>`).join('');
-  m.addEventListener('click', e => { const b = e.target.closest('.m'); if (b) LB.open(GALLERY, +b.dataset.i); });
+  m.addEventListener('click', e => { const b = e.target.closest('.m'); if (b) ZV.open([GALLERY[+b.dataset.i]], 0, b.querySelector('img')); });
 })();
 
 /* ---------- seasons ---------- */
@@ -345,10 +488,12 @@ document.getElementById('map-btn').addEventListener('click', () => {
 
 /* ---------- mobile dock ---------- */
 (function () {
-  const dock = document.getElementById('dock'), hero = document.querySelector('.hero'), book = document.getElementById('bronyuvannia');
+  const dock = document.getElementById('dock'), hero = document.querySelector('.hero'), book = document.getElementById('bronyuvannia'), cots = document.querySelector('.stack');
   if (!('IntersectionObserver' in window)) return;
-  let h = true, b = false;
-  const upd = () => dock.classList.toggle('show', !h && !b);
+  let h = true, b = false, c = false;
+  const upd = () => dock.classList.toggle('show', !h && !b && !c);
   new IntersectionObserver(([e]) => { h = e.isIntersecting; upd(); }).observe(hero);
   new IntersectionObserver(([e]) => { b = e.isIntersecting; upd(); }, { threshold: 0.05 }).observe(book);
+  /* cottage cards have their own price + button: keep the dock out of their way */
+  new IntersectionObserver(([e]) => { c = e.isIntersecting; upd(); }, { rootMargin: '-15% 0px -15% 0px' }).observe(cots);
 })();

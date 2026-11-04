@@ -32,7 +32,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="media/hero.webp" media="(min-width: 901px)">
 <link rel="preload" as="image" href="media/snig-m.webp" media="(max-width: 900px)">
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="styles.css?v=5">
 
 <script type="application/ld+json">
 {
@@ -155,9 +155,9 @@
       </div>
 
       <div class="reels">
-        <div class="reel reel-1"><span class="bezel"><video muted loop playsinline preload="none" poster="media/basein.webp" data-src="media/basein.mp4" aria-hidden="true"></video></span><span class="reel-tag">Басейн з підігрівом</span></div>
-        <div class="reel reel-2"><span class="bezel"><video muted loop playsinline preload="none" poster="media/snig.webp" data-src="media/snig.mp4" aria-hidden="true"></video></span><span class="reel-tag">Снігопад над котеджем</span></div>
-        <div class="reel reel-3"><span class="bezel"><video muted loop playsinline preload="none" poster="media/yalynka.webp" data-src="media/yalynka.mp4" aria-hidden="true"></video></span><span class="reel-tag">Вечір біля ялинки</span></div>
+        <div class="reel reel-1" role="button" tabindex="0" aria-label="Збільшити відео: Басейн з підігрівом"><span class="bezel"><video muted loop playsinline preload="none" poster="media/basein.webp" data-src="media/basein.mp4" aria-hidden="true"></video></span><span class="reel-tag">Басейн з підігрівом</span></div>
+        <div class="reel reel-2" role="button" tabindex="0" aria-label="Збільшити відео: Снігопад над котеджем"><span class="bezel"><video muted loop playsinline preload="none" poster="media/snig.webp" data-src="media/snig.mp4" aria-hidden="true"></video></span><span class="reel-tag">Снігопад над котеджем</span></div>
+        <div class="reel reel-3" role="button" tabindex="0" aria-label="Збільшити відео: Вечір біля ялинки"><span class="bezel"><video muted loop playsinline preload="none" poster="media/yalynka.webp" data-src="media/yalynka.mp4" aria-hidden="true"></video></span><span class="reel-tag">Вечір біля ялинки</span></div>
       </div>
     </div>
 
@@ -178,9 +178,9 @@
         <div class="intro-copy">
           <span class="eyebrow reveal">Маєток у Поляниці</span>
           <h2 class="intro-text reveal" id="intro-h">
-            Чотири зруби <span class="inline-img" tabindex="0" role="img" aria-label="Котедж Стильний" style="--img:url(img/styl-640.webp)"></span> серед вікових смерек, де зранку чути лише птахів <span class="inline-img" tabindex="0" role="img" aria-label="Тераса з видом на засніжені смереки" style="--img:url(img/terasa-zyma-640.webp)"></span>, а ввечері — тріск каміна <span class="inline-img" tabindex="0" role="img" aria-label="Живий вогонь у каміні" style="--img:url(img/vohon-640.webp)"></span> і сніг за вікном
+            Чотири зруби <span class="inline-img" tabindex="0" role="button" aria-label="Маєток серед засніжених смерек — вид з висоти" data-thumb="img/dolyna-zyma-640.webp" data-full="img/dolyna-zyma-1600.webp" data-w="2560" data-h="1918" style="--img:url(img/dolyna-zyma-640.webp)"></span> серед вікових смерек, де зранку чути лише птахів <span class="inline-img" tabindex="0" role="button" aria-label="Тераса з видом на засніжені смереки" data-thumb="img/terasa-zyma-640.webp" data-full="img/terasa-zyma-1600.webp" data-w="2560" data-h="1920" style="--img:url(img/terasa-zyma-640.webp)"></span>, а ввечері — тріск каміна <span class="inline-img" tabindex="0" role="button" aria-label="Живий вогонь у каміні" data-thumb="img/vohon-2-640.webp" data-full="img/vohon-2-1600.webp" data-w="644" data-h="1274" style="--img:url(img/vohon-2-640.webp)"></span> і сніг за вікном
           </h2>
-          <p class="intro-hint reveal">Наведіть або торкніться фото в тексті — воно збільшиться.</p>
+          <p class="intro-hint reveal">Натисніть на фото в тексті — воно відкриється на весь екран.</p>
         </div>
         <div class="zruby" aria-label="Наші котеджі">
         <a class="zrub reveal" href="#kotedzh-vezha" style="--d:0"><span class="zrub-img"><img src="img/vezha-640.webp" alt="Котедж Вежа — зруб у Поляниці" width="640" height="480" loading="lazy" decoding="async"></span><span class="zrub-cap"><b>Вежа</b><span>до 7 гостей</span></span><i class="zrub-go" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 12 12 4M6 4h6v6"/></svg></i></a>
@@ -275,6 +275,7 @@
 
   <!-- EXPERIENCES -->
   <section class="bento-sec" id="vidpochynok" aria-labelledby="exp-h">
+    <div class="bento-bg" aria-hidden="true"></div>
     <div class="sec-head">
       <span class="eyebrow eyebrow-light reveal">Відпочинок</span>
       <h2 class="h2 h2-light reveal" id="exp-h">Звідси <em>не хочеться</em> їхати</h2>
@@ -536,15 +537,21 @@
   <a class="round round-light" href="tel:+380504680470" aria-label="Подзвонити"><svg viewBox="0 0 16 16"><path d="M5.5 2.5 3 3c0 6 4 10 10 10l.5-2.5-3-1.5-1.5 1.5C7 9.5 6.5 9 5.5 7l1.5-1.5z"/></svg></a>
 </div>
 
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Перегляд фото й відео" hidden>
-  <div class="lb-stage" id="lb-stage"></div>
-  <div class="lb-top"><span class="lb-count" id="lb-count"></span><button class="round round-light" type="button" id="lb-close" aria-label="Закрити"><svg viewBox="0 0 16 16"><path d="M3 3l10 10M13 3 3 13"/></svg></button></div>
-  <button class="round round-light lb-prev" type="button" id="lb-prev" aria-label="Попереднє"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button>
-  <button class="round round-light lb-next" type="button" id="lb-next" aria-label="Наступне"><svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5"/></svg></button>
-  <p class="lb-cap" id="lb-cap"></p>
-  <div class="lb-thumbs" id="lb-thumbs"></div>
+<div class="zv" id="zv" role="dialog" aria-modal="true" aria-label="Перегляд фото й відео" hidden>
+  <div class="zv-bg" aria-hidden="true"></div>
+  <div class="zv-track" id="zv-track"></div>
+  <span class="zv-count" id="zv-count"></span>
+  <button class="round round-light zv-close" type="button" id="zv-close" aria-label="Закрити"><svg viewBox="0 0 16 16"><path d="M3 3l10 10M13 3 3 13"/></svg></button>
+  <button class="round round-light zv-prev" type="button" id="zv-prev" aria-label="Попереднє"><svg viewBox="0 0 16 16"><path d="M10 3 5 8l5 5"/></svg></button>
+  <button class="round round-light zv-next" type="button" id="zv-next" aria-label="Наступне"><svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5"/></svg></button>
+  <p class="zv-cap" id="zv-cap"></p>
 </div>
 
-<script src="app.js?v=4" defer></script>
+<div class="pz" id="pz" role="dialog" aria-modal="true" aria-label="Відео на весь екран" hidden>
+  <span class="bezel"><video muted loop playsinline aria-hidden="true"></video></span>
+  <button class="round round-light zv-close" type="button" aria-label="Закрити"><svg viewBox="0 0 16 16"><path d="M3 3l10 10M13 3 3 13"/></svg></button>
+</div>
+
+<script src="app.js?v=5" defer></script>
 </body>
 </html>
